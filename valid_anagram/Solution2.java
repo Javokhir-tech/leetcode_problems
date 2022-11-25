@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Solution2 {
 
     public static boolean isAnagram(String s, String t) {
-        var arrS = Arrays.stream(s.split("")).sorted().toList();
+        var arrS = Arrays.stream(s.split("")).sorted().toList();    // sorts string chars then compares
         var arrT = Arrays.stream(t.split("")).sorted().toList();
         return arrS.equals(arrT);
     }

@@ -16,7 +16,7 @@ class Solution {
 
     private static Map<Character, Integer> countLetters(String s, Map<Character, Integer> map) {
         for (int i = 0; i < s.length(); i++) {
-            map.put(s.charAt(i), map.get(s.charAt(i)) == null ? 1 : map.get(s.charAt(i)) + 1);
+            map.put(s.charAt(i), map.get(s.charAt(i)) == null ? 1 : map.get(s.charAt(i)) + 1); // count by letter in string
         }
         return map;
     }
