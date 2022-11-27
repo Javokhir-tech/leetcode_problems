@@ -1,7 +1,6 @@
 package group_anagrams;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,12 +22,6 @@ public class Solution1 {
         return globalList;
     }
 
-    private String sortedString(String selected) {  // use sorted string as a key, performance bottleneck is here takes O(nlogn)
-        char[] arrSelected = selected.toCharArray();
-        Arrays.sort(arrSelected);
-        return new String(arrSelected);
-    }
-
     private String getSignature(String str) {
         // for each of 26 chars, use count of each char in each word as tuple for key in dict, value is the list of anagrams;
         char[] arr = new char[26];
@@ -42,7 +35,6 @@ public class Solution1 {
         var strs = new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
         var sol = new Solution1();
         var result = sol.groupAnagrams(strs); // runtime 13ms beats 75.96% memory 54.8Mb beats 80.52%
-        System.out.println('c' + 'a');
         result.forEach(System.out::println);
     }
 }
