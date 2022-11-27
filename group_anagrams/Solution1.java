@@ -14,13 +14,8 @@ public class Solution1 {
         var map = new HashMap<String, List<String>>();
         for (String str : strs) { // O(s)
             var key = getSignature(str); // O(n) // optimized
-            if (map.containsKey(key)) {  // check if sorted key is present, if so add item to map's value
-                map.get(key).add(str);
-            } else {
-                var list = new ArrayList<String>();
-                list.add(str);
-                map.put(key, list);
-            }
+            map.computeIfAbsent(key, k -> new ArrayList<>()); // 2nd param mapping function is called if key is not present
+            map.get(key).add(str);
         }
         for (var entry: map.entrySet()) { // O(m)
             globalList.add(entry.getValue());
