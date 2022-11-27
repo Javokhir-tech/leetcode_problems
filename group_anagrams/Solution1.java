@@ -13,16 +13,18 @@ public class Solution1 {
         var globalList = new ArrayList<List<String>>();
         var map = new HashMap<String, List<String>>();
         for (String str : strs) { // O(s)
-            var sorted = sortedString(str); // O(nlogn)
-            if (map.containsKey(sorted)) {  // check if sorted key is present, if so add item to map's value
-                map.get(sorted).add(str);
+            var key = getSignature(str); // O(n) // optimized
+            if (map.containsKey(key)) {  // check if sorted key is present, if so add item to map's value
+                map.get(key).add(str);
             } else {
                 var list = new ArrayList<String>();
                 list.add(str);
-                map.put(sorted, list);
+                map.put(key, list);
             }
         }
-        map.forEach((key, value) -> globalList.add(value)); // O(m)
+        for (var entry: map.entrySet()) { // O(m)
+            globalList.add(entry.getValue());
+        }
         return globalList;
     }
 
@@ -30,6 +32,15 @@ public class Solution1 {
         char[] arrSelected = selected.toCharArray();
         Arrays.sort(arrSelected);
         return new String(arrSelected);
+    }
+
+    private String getSignature(String str) {
+        // for each of 26 chars, use count of each char in each word as tuple for key in dict, value is the list of anagrams;
+        char[] arr = new char[26];
+        for (char c : str.toCharArray())
+            arr[c - 'a']++;
+
+        return new String(arr);
     }
 
     public static void main(String[] args) { // O(ab) < O(ablogb)
