@@ -1,4 +1,4 @@
-package cracking_the_coding_interview.strings;
+package cracking_the_coding_interview.strings.unique;
 
 
 import java.util.Arrays;
