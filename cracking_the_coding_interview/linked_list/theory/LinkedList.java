@@ -1,9 +1,9 @@
 package cracking_the_coding_interview.linked_list.theory;
 
-public class Linked_List {
+public class LinkedList {
   private Node head;
 
-  void insert(int data) {
+  public void insert(int data) {
     var node = new Node(data);
     node.next = null;
 
@@ -19,13 +19,33 @@ public class Linked_List {
     }
   }
 
-  void show() {
+  public void show() {
     var n = head;
     while (n.next != null) {
       System.out.print(n.data +  " -> ");
       n = n.next;
     }
     System.out.println(n.data);
+  }
+
+  public void insertAt(int index, int data) {
+    var node = new Node(data);
+    node.next = null;
+    int counter = 1;
+
+    var n = head;
+    if (index == 0) {
+      head = node;
+      node.next = n;
+    }
+    else {
+      while (counter < index) {  // logic for iterating through nodes
+        counter++;
+        n = n.next;
+      }
+      node.next = n.next;
+      n.next = node;
+    }
   }
 
   private static class Node {
