@@ -68,6 +68,45 @@ public class LinkedList {
 
   }
 
+  public void delete(int data) {
+    var n = head;
+    Node prev = null;
+
+    while (n.data != data) {
+      prev = n; // assign to prev, before moving further and reaching relevant node
+      n = n.next;
+    }
+    prev.next = n.next; // set prev next to n's next, to drop n
+  }
+
+  public void deleteAt(int index) {
+    var n = head;
+    int counter = 0;
+    Node prev = null;
+
+    while (counter < index) {
+      counter++;
+      prev = n;
+      n = n.next;
+    }
+    prev.next = n.next;
+  }
+
+  public void deleteFirst() {
+    var n = head;
+    head = n.next;
+  }
+
+  public void deleteLast() {
+    var n = head;
+    Node prev = null;
+    while (n.next != null) {
+      prev = n;
+      n = n.next;
+    }
+    prev.next = null;
+  }
+
   private static class Node {
     int data;
     Node next;

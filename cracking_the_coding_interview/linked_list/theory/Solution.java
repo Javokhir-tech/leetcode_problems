@@ -17,6 +17,14 @@ public class Solution {
     list.insertLast(33);
     list.insertLast(12);
 
+    list.delete(4);
+
+    list.deleteAt(2);
+    list.deleteFirst();
+    list.deleteFirst();
+
+    list.deleteLast();  // 12
+    list.deleteLast();  // 33
     list.show();
   }
 }
