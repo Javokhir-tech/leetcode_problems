@@ -48,6 +48,26 @@ public class LinkedList {
     }
   }
 
+  public void insertFirst(int data) {
+    var node = new Node(data);
+
+    var n = head;
+    node.next = n;
+    head = node;
+  }
+
+  public void insertLast(int data) {
+    var node = new Node(data);
+    node.next = null;
+
+    var n = head;
+    while (n.next != null) {
+      n = n.next;
+    }
+    n.next = node;
+
+  }
+
   private static class Node {
     int data;
     Node next;

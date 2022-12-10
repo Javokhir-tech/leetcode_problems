@@ -12,6 +12,11 @@ public class Solution {
 
     list.insertAt(4, 20);
 
+    list.insertFirst(1);
+    list.insertFirst(90);
+    list.insertLast(33);
+    list.insertLast(12);
+
     list.show();
   }
 }
