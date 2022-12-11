@@ -1,5 +1,7 @@
 package cracking_the_coding_interview.linked_list.theory;
 
+import java.util.HashSet;
+
 public class LinkedList {
   private Node head;
 
@@ -65,7 +67,6 @@ public class LinkedList {
       n = n.next;
     }
     n.next = node;
-
   }
 
   public void delete(int data) {
@@ -75,8 +76,15 @@ public class LinkedList {
     while (n.data != data) {
       prev = n; // assign to prev, before moving further and reaching relevant node
       n = n.next;
+      if (n == null) {
+        System.out.println(data + " not present in the list");
+        System.exit(1);
+      }
     }
-    prev.next = n.next; // set prev next to n's next, to drop n
+    if (prev != null)
+      prev.next = n.next; // set prev next to n's next, to drop n
+    else
+      deleteFirst();
   }
 
   public void deleteAt(int index) {
@@ -105,6 +113,17 @@ public class LinkedList {
       n = n.next;
     }
     prev.next = null;
+  }
+
+  public void removeDuplicates() {  // remove duplicates from linked list time O(n), space O(n)
+    var n = head;
+    var set = new HashSet<Integer>();
+    while (n.next != null) {
+      n = n.next;
+      if (set.contains(n.data))
+        this.delete(n.data);
+      set.add(n.data);
+    }
   }
 
   private static class Node {
