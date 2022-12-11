@@ -71,20 +71,17 @@ public class LinkedList {
 
   public void delete(int data) {
     var n = head;
-    Node prev = null;
 
-    while (n.data != data) {
-      prev = n; // assign to prev, before moving further and reaching relevant node
-      n = n.next;
-      if (n == null) {
-        System.out.println(data + " not present in the list");
-        System.exit(1);
-      }
+    if (n.data == data) {
+      head = n.next;
     }
-    if (prev != null)
-      prev.next = n.next; // set prev next to n's next, to drop n
-    else
-      deleteFirst();
+    while (n.next != null) {
+      if (n.next.data == data) {
+        n.next = n.next.next;
+        break; /* head didn't change*/
+      }
+      n = n.next;
+    }
   }
 
   public void deleteAt(int index) {
@@ -119,10 +116,29 @@ public class LinkedList {
     var n = head;
     var set = new HashSet<Integer>();
     while (n.next != null) {
-      n = n.next;
-      if (set.contains(n.data))
+      if (set.contains(n.data)) {
         this.delete(n.data);
-      set.add(n.data);
+      }
+      else
+        set.add(n.data);
+      n = n.next;
+    }
+  }
+
+  public void removeDuplicatesNoBuffer() { // O(n^2) time, space O(1)
+    var ptr1 = head;
+    Node ptr2 = null;
+
+    while (ptr1 != null && ptr1.next != null) {
+      ptr2 = ptr1;
+      while (ptr2.next != null) {
+        if (ptr1.data == ptr2.next.data) {
+          ptr2.next = ptr2.next.next;
+        }
+        else
+          ptr2 = ptr2.next;
+      }
+      ptr1 = ptr1.next;
     }
   }
 
