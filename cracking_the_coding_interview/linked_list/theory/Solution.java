@@ -19,6 +19,7 @@ public class Solution {
     list.insert(8);
     list.insert(8);
     list.insert(1);
+    list.insert(9);
     list.show();
     list.removeDuplicatesNoBuffer();
     list.show();

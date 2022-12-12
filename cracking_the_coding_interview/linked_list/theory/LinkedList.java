@@ -116,9 +116,8 @@ public class LinkedList {
     var n = head;
     var set = new HashSet<Integer>();
     while (n.next != null) {
-      if (set.contains(n.data)) {
+      if (set.contains(n.data))
         this.delete(n.data);
-      }
       else
         set.add(n.data);
       n = n.next;
@@ -126,15 +125,13 @@ public class LinkedList {
   }
 
   public void removeDuplicatesNoBuffer() { // O(n^2) time, space O(1)
-    var ptr1 = head;
-    Node ptr2 = null;
+    Node ptr1 = head, ptr2;
 
-    while (ptr1 != null && ptr1.next != null) {
+    while (ptr1 != null) {
       ptr2 = ptr1;
       while (ptr2.next != null) {
-        if (ptr1.data == ptr2.next.data) {
+        if (ptr1.data == ptr2.next.data)
           ptr2.next = ptr2.next.next;
-        }
         else
           ptr2 = ptr2.next;
       }
@@ -142,10 +139,36 @@ public class LinkedList {
     }
   }
 
+  public int getKthToLast(int k) {  // time O(n), space O(1)
+    Node ptr1 = head, ptr2 = head;
+    int counter = 0;
+    int size = 0;
+
+    while (ptr1.next != null) {
+      size++;
+      ptr1 = ptr1.next;
+    }
+
+    if (size - k < 0) {
+      System.out.println("out of bounds");
+      System.exit(-1);
+    }
+
+    while (counter != size - k) {
+      counter++;
+      ptr2 = ptr2.next;
+    }
+    return ptr2.data;
+  }
+
   private static class Node {
     int data;
     Node next;
 
     public Node(int data) {this.data = data;}
+
+    public int getData() {
+      return data;
+    }
   }
 }
