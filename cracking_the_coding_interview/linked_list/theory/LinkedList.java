@@ -161,6 +161,23 @@ public class LinkedList {
     return ptr2.data;
   }
 
+  public int deleteMiddle() { // deletes middle node , time O(1), space(1)
+    var node = head;
+    int size = 0;
+    while (node != null) {
+      size++;
+      node = node.next;
+    }
+
+    var middle = head;
+    for (int i = 0; i < size/2; i++) {
+      node = middle;  // prev node of middle node
+      middle = middle.next;
+    }
+    node.next = middle.next;  // set prev's next to middle's next
+    return middle.data;
+  }
+
   private static class Node {
     int data;
     Node next;
