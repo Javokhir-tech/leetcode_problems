@@ -178,11 +178,32 @@ public class LinkedList {
     return middle.data;
   }
 
+  public boolean isPalindrome() {
+
+
+    return false;
+  }
+
+  public LinkedList reverse() {
+    var current = head;
+    Node n = null;
+    Node p = null;
+
+    while (current.next != null) {
+      n = current.next;
+      current.next = p;
+      p = current;
+      current = n;
+    }
+    head = current;
+    return this;
+  }
+
   private static class Node {
     int data;
     Node next;
 
-    public Node(int data) {this.data = data;}
+    public Node(int data) {this.data = data; this.next = null;}
 
     public int getData() {
       return data;

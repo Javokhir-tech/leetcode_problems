@@ -18,14 +18,24 @@ public class Recursiv {
         insert(node2, 9);
         insert(node2, 5);
 
-        show(sumList(node1, node2));
+        var node = new Node(9);
+        insert(node, 3);
+        insert(node , 4);
+        insert(node , 2);
+        insert(node , 3);
+        insert(node , 2);
+        insert(node , 4);
+        insert(node, 3);
+        insert(node, 9);
+        show(node);
+        System.out.println(isPalindrome(node));
     }
 
     static class Node {
         int data;
         Node next;
 
-        public Node(int data) {this.data = data;}
+        public Node(int data) {this.data = data; this.next = null;}
 
         public Node() {}
 
@@ -96,6 +106,44 @@ public class Recursiv {
                 insert(result, Integer.parseInt(arr[i]));
 
             return result;
+        }
+
+        public static Node reverse(Node head) {
+            var current = head;
+            Node n;
+            Node p = null;
+            while (current != null) {
+                n = current.next;
+                current.next = p;
+                p = current;
+                current = n;
+            }
+            return p;
+        }
+
+        public static Node reverseAndCopy(Node head) {
+            var curr = head;
+            Node prev = null;
+            Node node = null;
+            while (curr != null) { // create new node, set prev to null, then set node.next to prev, set prev to node
+                node = new Node(curr.data);
+                node.next = prev;
+                prev = node;
+                curr = curr.next;
+            }
+            return node;
+        }
+
+        public static boolean isPalindrome(Node node) {
+            var reversed = reverseAndCopy(node);
+            while (node != null) {
+                if (node.data != reversed.data) {
+                    return false;
+                }
+                node = node.next;
+                reversed = reversed.next;
+            }
+            return true;
         }
     }
 }
