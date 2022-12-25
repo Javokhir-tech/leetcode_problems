@@ -11,24 +11,21 @@ public class Recursiv {
 //        insertRecursive(node,12);
 //        showRecursive(node);
 
-        var node1 = new Node(6);
-        insert(node1, 1);
-        insert(node1, 7);
-        var node2 = new Node(2);
-        insert(node2, 9);
-        insert(node2, 5);
 
         var node = new Node(9);
+        insert(node, 7);
         insert(node, 3);
-        insert(node , 4);
-        insert(node , 2);
-        insert(node , 3);
-        insert(node , 2);
-        insert(node , 4);
-        insert(node, 3);
-        insert(node, 9);
-        show(node);
-        System.out.println(isPalindrome(node));
+        insert(node, 4);
+        insert(node, 2);
+        insert(node, 8);
+        insert(node, 5);
+
+        //           - - - - - - - - - - - -
+        //           |                      ^
+        // 9 -> 7 -> 3 -> 4 -> 2 -> 8 -> 5 -|
+        node.next.next.next.next.next.next.next = node.next.next.next;
+        System.out.println(loopDetection(node).data);
+//        show(node);
     }
 
     static class Node {
@@ -112,7 +109,7 @@ public class Recursiv {
             var current = head;
             Node n;
             Node p = null;
-            while (current != null) {
+            while (current != null) { // we use 3 pointers
                 n = current.next;
                 current.next = p;
                 p = current;
@@ -121,7 +118,7 @@ public class Recursiv {
             return p;
         }
 
-        public static Node reverseAndCopy(Node head) {
+        public static Node reverseAndCopy(Node head) { // time O(n), space O(n)
             var curr = head;
             Node prev = null;
             Node node = null;
@@ -144,6 +141,26 @@ public class Recursiv {
                 reversed = reversed.next;
             }
             return true;
+        }
+
+        public static Node loopDetection(Node node) {
+            var fast = node;
+            var slow = node;
+            while (fast != null && slow != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast) {
+                    var current = node;
+                    while (current != slow) {
+                        if (current == fast) {
+                            return current;
+                        }
+                        current = current.next;
+                        fast = slow.next;
+                    }
+                }
+            }
+            return null;
         }
     }
 }
