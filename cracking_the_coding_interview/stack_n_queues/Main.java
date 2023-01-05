@@ -9,7 +9,12 @@ public class Main {
         stack.push(8);
         stack.pop();
         stack.pop();
-        System.out.println(stack.pop());
-        stack.pop();
+
+        var queue = new Queue<Integer>();
+        queue.add(4);
+        queue.add(5);
+        queue.add(9);
+        queue.add(6);
+        queue.print();
     }
 }
