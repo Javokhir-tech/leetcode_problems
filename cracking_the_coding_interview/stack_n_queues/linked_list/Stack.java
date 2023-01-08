@@ -1,4 +1,4 @@
-package cracking_the_coding_interview.stack_n_queues;
+package cracking_the_coding_interview.stack_n_queues.linked_list;
 
 import java.util.EmptyStackException;
 

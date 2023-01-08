@@ -1,5 +1,8 @@
 package cracking_the_coding_interview.stack_n_queues;
 
+import cracking_the_coding_interview.stack_n_queues.linked_list.Queue;
+import cracking_the_coding_interview.stack_n_queues.linked_list.Stack;
+
 public class Main {
     public static void main(String[] args) {
         var stack = new Stack<Integer>();
