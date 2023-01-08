@@ -2,7 +2,7 @@ package cracking_the_coding_interview.stack_n_queues.linked_list;
 
 import java.util.EmptyStackException;
 
-/*
+/**
 * internally uses linked list
 * */
 public class Stack<T> {
@@ -17,7 +17,7 @@ public class Stack<T> {
 
     private StackNode<T> top;
 
-    /*
+    /**
     * removes from top
     * */
     public T pop() {
@@ -27,7 +27,7 @@ public class Stack<T> {
         return data;
     }
 
-    /*
+    /**
     * adds to top
     * */
     public void push(T item) {
@@ -44,14 +44,14 @@ public class Stack<T> {
         }
     }
 
-    /*
+    /**
     * checks if empty
     * */
     public boolean isEmpty() {
         return top == null;
     }
 
-    /*
+    /**
     * returns top element
     * */
     public T peek() {
