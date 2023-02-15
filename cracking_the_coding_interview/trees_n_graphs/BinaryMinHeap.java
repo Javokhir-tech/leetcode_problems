@@ -39,15 +39,44 @@ public class BinaryMinHeap {
     public void heapifyUp(int x) {
         var temp = heap[x];
         while (x != 0 && heap[parent(x)] > temp) {
-            heap[x] = heap[parent(x)];  // swap elements
-            x = parent(x);              // swap roots
+            heap[x] = heap[parent(x)];  // swap elements | set child to parent
+            x = parent(x);              // swap indexes for iterating
         }
         heap[x] = temp;
     }
 
-    public int delete() {
+    /**
+     * delete element by index
+     * */
+    public int delete(int i) {
         if (isEmpty()) throw new EmptyStackException();
-        return heap[0];
+        var temp = heap[i];
+        heap[i] = heap[heapSize - 1];
+        heapSize--;
+        heapifyDown(i);
+        return temp;
+    }
+
+    public void heapifyDown(int i) {
+        int child;
+        int top = heap[i];
+        while(kThElement(i, 1) < heapSize) {
+            child = minElement(i);
+            if (top > heap[child]) { heap[i] = heap[child]; }
+            else break;
+            i = child;
+        }
+        heap[i] = top;
+    }
+
+    private int minElement(int i) {
+        var leftChild = kThElement(i, 1);
+        var rightChild = kThElement(i, 2);
+        return heap[leftChild] < heap[rightChild] ? leftChild : rightChild;
+    }
+
+    private int kThElement(int i, int k) {
+        return 2 * i + k;
     }
 
     public boolean isFull() {
@@ -65,7 +94,10 @@ public class BinaryMinHeap {
         minHeap.add(2);         // 2 6 3
         minHeap.add(4);         // 2 4 3 6
         minHeap.add(1);         // 1 2 3 6 4
-        minHeap.add(8);
+        minHeap.add(8);         // 1 2 3 6 4 8
+
+        minHeap.delete(1);
+//        minHeap.delete(0);  // 2 4 3 6 8
         minHeap.print();
     }
 }
