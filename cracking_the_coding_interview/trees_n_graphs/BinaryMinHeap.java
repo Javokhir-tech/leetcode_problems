@@ -40,7 +40,7 @@ public class BinaryMinHeap {
         var temp = heap[x];
         while (x != 0 && heap[parent(x)] > temp) {
             heap[x] = heap[parent(x)];  // swap elements | set child to parent
-            x = parent(x);              // swap indexes for iterating
+            x = parent(x);              // move to next kid
         }
         heap[x] = temp;
     }
@@ -60,11 +60,11 @@ public class BinaryMinHeap {
     public void heapifyDown(int i) {
         int child;
         int top = heap[i];
-        while(kThElement(i, 1) < heapSize) {
-            child = minElement(i);
+        while(kThElement(i, 1) < heapSize) {    // iterate while parent have no more kids
+            child = minElement(i);                  // get the smallest kid
             if (top > heap[child]) { heap[i] = heap[child]; }
             else break;
-            i = child;
+            i = child;  // move to next kid
         }
         heap[i] = top;
     }
