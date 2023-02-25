@@ -24,9 +24,9 @@ public class Graph<T> {
 
     public void print() {
         for (var set: vertices.entrySet()) {
-            System.out.println("vertex: " + set.getKey());
+            System.out.println("\nvertex: " + set.getKey());
             for (var child: set.getValue().children) {
-                System.out.println("-> " + child.value);
+                System.out.print("-> " + child.value);
             }
             System.out.println();
         }
@@ -55,5 +55,72 @@ public class Graph<T> {
         }
 
         public Node() {}
+    }
+}
+
+class Graph3<T> {
+    public int size;
+    public ArrayList<Node<T>> vertices;
+
+    public Graph3(int size) {
+        this.size = size;
+        vertices = new ArrayList<>(size);
+    }
+
+    public void add(T s, T d) {
+        if (!containsName(vertices, s)) {
+            var node = new Node<>(s);
+            node.children = new ArrayList<>();
+            vertices.add(node);
+        }
+        var values = vertices.stream().map(Node::getValue).toList();    // O(n)
+        var index = values.indexOf(s);
+        vertices.get(index).children.add(new Node<T>(d));
+    }
+    private boolean containsName(final ArrayList<Node<T>> list, final T value) {    // O(n)
+        return list.stream().map(Node::getValue).anyMatch(value::equals);
+    }
+
+    public void print() {
+        for (var vertex : vertices) {
+            System.out.println("\nvertex: " + vertex.value);
+            for (var child : vertex.children) {
+                System.out.print(" -> " + child.value);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        var graph = new Graph3<String>(2);
+        graph.add("Kim", "Jim");
+        graph.add("Jim", "Tony");
+        graph.add("Tony", "Kim");
+        graph.add("Tony", "Lee");
+        graph.add("Lee", "Tony");
+
+        graph.add("Jack", "George");
+        graph.add("John", "Jack");
+        graph.add("George", "John");
+
+        graph.print();
+    }
+    static class Node<T> {
+        private T value;
+        private ArrayList<Node<T>> children;
+
+        public Node(T value) {
+            this.value = value;
+        }
+
+        public Node() {}
+
+        public T getValue() {
+            return value;
+        }
+
+        public ArrayList<Node<T>> getChildren() {
+            return children;
+        }
     }
 }
