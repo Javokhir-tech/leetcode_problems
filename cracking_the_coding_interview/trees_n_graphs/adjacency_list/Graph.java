@@ -4,36 +4,43 @@ import java.util.*;
 
 public class Graph<T> {
 
-    public int size;
     public Map<T, Node<T>> vertices;
 
-    public Graph(int size) {
-        this.size = size;
-        vertices = new HashMap<>(size);
+    public Graph() {
+        vertices = new HashMap<>();
     }
 
     public void add(T s, T d) {
         // get index of node with value s
         if (!vertices.containsKey(s)) {
-            var node = new Node<T>(s);
+            var node = new Node<>(s);
             node.children = new HashSet<>();
             vertices.put(s, node);
         }
-        vertices.get(s).children.add(new Node<T>(d));
+        vertices.get(s).children.add(new Node<>(d));
+    }
+
+    public void delete(T s, T d) {
+        for (var vertex : vertices.entrySet()) {
+            if (vertex.getKey().equals(s)) {
+                vertex.getValue().children.removeIf(child -> child.data.equals(d));
+            }
+        }
+        if (vertices.get(s).children.isEmpty()) vertices.remove(s);
     }
 
     public void print() {
         for (var set: vertices.entrySet()) {
             System.out.println("\nvertex: " + set.getKey());
             for (var child: set.getValue().children) {
-                System.out.print("-> " + child.value);
+                System.out.print("-> " + child.data);
             }
             System.out.println();
         }
     }
 
     public static void main(String[] args) {
-        var graph = new Graph<String>(2);
+        var graph = new Graph<String>();
         graph.add("Kim", "Jim");
         graph.add("Jim", "Tony");
         graph.add("Tony", "Kim");
@@ -44,17 +51,17 @@ public class Graph<T> {
         graph.add("John", "Jack");
         graph.add("George", "John");
 
+        graph.delete("Kim", "Jim");
+
         graph.print();
     }
     static class Node<T> {
-        private T value;
+        private T data;
         private HashSet<Node<T>> children;
 
-        public Node(T value) {
-            this.value = value;
+        public Node(T data) {
+            this.data = data;
         }
-
-        public Node() {}
     }
 }
 
@@ -75,7 +82,7 @@ class Graph3<T> {
         }
         var values = vertices.stream().map(Node::getValue).toList();    // O(n)
         var index = values.indexOf(s);
-        vertices.get(index).children.add(new Node<T>(d));
+        vertices.get(index).children.add(new Node<>(d));
     }
     private boolean containsName(final ArrayList<Node<T>> list, final T value) {    // O(n)
         return list.stream().map(Node::getValue).anyMatch(value::equals);
@@ -113,14 +120,8 @@ class Graph3<T> {
             this.value = value;
         }
 
-        public Node() {}
-
         public T getValue() {
             return value;
-        }
-
-        public ArrayList<Node<T>> getChildren() {
-            return children;
         }
     }
 }

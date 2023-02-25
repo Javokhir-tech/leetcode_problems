@@ -11,14 +11,29 @@ public class Graph2 {
         am.get(d).add(s);
     }
 
+    static void delete(ArrayList<ArrayList<Integer>> am, int s, int d) {
+        for (int i = 0; i < am.get(d).size(); i++) {
+            if (am.get(d).get(i).equals(s)) {
+                am.get(d).remove(i);
+                break;
+            }
+        }
+        for (int i = 0; i < am.get(s).size(); i++) {
+            if (am.get(s).get(i).equals(d)) {
+                am.get(s).remove(i);
+                break;
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         // Create the graph
         int V = 7;
-        ArrayList<ArrayList<Integer>> am = new ArrayList<ArrayList<Integer>>(V);
+        ArrayList<ArrayList<Integer>> am = new ArrayList<>(V);
 
         for (int i = 0; i < V; i++)
-            am.add(new ArrayList<Integer>());
+            am.add(new ArrayList<>());
 
         // Add edges
         addEdge(am, 0, 1);
@@ -26,12 +41,11 @@ public class Graph2 {
         addEdge(am, 2, 3);
         addEdge(am, 2, 0);
         addEdge(am, 3, 2);
-        addEdge(am, 3, 3);
 
         addEdge(am, 4, 6);
-        addEdge(am, 5, 4);
         addEdge(am, 6, 5);
 
+        delete(am, 0, 1);
         printGraph(am);
     }
 
