@@ -2,7 +2,7 @@ package cracking_the_coding_interview.trees_n_graphs.adjacency_list;
 
 import java.util.*;
 
-public class Graph<T> {
+public class Graph<T> { // directed generic
 
     public Map<T, Node<T>> vertices;
 
@@ -29,6 +29,22 @@ public class Graph<T> {
         if (vertices.get(s).children.isEmpty()) vertices.remove(s);
     }
 
+    public void dfs(T start) {
+        var visited = new HashMap<T, Boolean>();
+        dfsRecursive(start, visited);
+    }
+
+    private void dfsRecursive(T current, Map<T, Boolean> isVisited) {
+        isVisited.put(current, true);
+        System.out.print(current + " -> ");
+        for (var dest : vertices.entrySet()) {
+            for (var val: dest.getValue().children)
+                if (!isVisited.containsKey(val.data)) {
+                    dfsRecursive(val.data, isVisited);
+                }
+        }
+    }
+
     public void print() {
         for (var set: vertices.entrySet()) {
             System.out.println("\nvertex: " + set.getKey());
@@ -42,6 +58,8 @@ public class Graph<T> {
     public static void main(String[] args) {
         var graph = new Graph<String>();
         graph.add("Kim", "Jim");
+        graph.add("Kim", "Jacob");
+
         graph.add("Jim", "Tony");
         graph.add("Tony", "Kim");
         graph.add("Tony", "Lee");
@@ -51,9 +69,10 @@ public class Graph<T> {
         graph.add("John", "Jack");
         graph.add("George", "John");
 
-        graph.delete("Kim", "Jim");
+//        graph.delete("Kim", "Jim");
 
-        graph.print();
+        graph.dfs("Kim");
+//        graph.print();
     }
     static class Node<T> {
         private T data;

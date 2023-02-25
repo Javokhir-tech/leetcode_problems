@@ -2,25 +2,35 @@ package cracking_the_coding_interview.trees_n_graphs.adjacency_list;
 
 import java.util.*;
 
-// Adjascency List representation in Java
+// Adjascency List representation in Java undirected
 public class Graph2 {
 
-    // Add edge
-    static void addEdge(ArrayList<ArrayList<Integer>> am, int s, int d) {
-        am.get(s).add(d);
-        am.get(d).add(s);
+    private int size;
+    private ArrayList<ArrayList<Integer>> vertices;
+
+    public Graph2(int size) {
+        this.size = size;
+        vertices = new ArrayList<>(size);
+        for (int i = 0; i < size; i++)
+            vertices.add(new ArrayList<>());
     }
 
-    static void delete(ArrayList<ArrayList<Integer>> am, int s, int d) {
-        for (int i = 0; i < am.get(d).size(); i++) {
-            if (am.get(d).get(i).equals(s)) {
-                am.get(d).remove(i);
+    // Add edge
+    public void addEdge(int s, int d) {
+        vertices.get(s).add(d);
+        vertices.get(d).add(s);
+    }
+
+    public void delete(int s, int d) {
+        for (int i = 0; i < vertices.get(d).size(); i++) {
+            if (vertices.get(d).get(i).equals(s)) {
+                vertices.get(d).remove(i);
                 break;
             }
         }
-        for (int i = 0; i < am.get(s).size(); i++) {
-            if (am.get(s).get(i).equals(d)) {
-                am.get(s).remove(i);
+        for (int i = 0; i < vertices.get(s).size(); i++) {
+            if (vertices.get(s).get(i).equals(d)) {
+                vertices.get(s).remove(i);
                 break;
             }
         }
@@ -28,33 +38,105 @@ public class Graph2 {
 
     public static void main(String[] args) {
 
-        // Create the graph
-        int V = 7;
-        ArrayList<ArrayList<Integer>> am = new ArrayList<>(V);
-
-        for (int i = 0; i < V; i++)
-            am.add(new ArrayList<>());
+        var graph = new Graph2(7);
 
         // Add edges
-        addEdge(am, 0, 1);
-        addEdge(am, 1, 2);
-        addEdge(am, 2, 3);
-        addEdge(am, 2, 0);
-        addEdge(am, 3, 2);
+        graph.addEdge( 0, 1);
+        graph.addEdge( 1, 2);
+        graph.addEdge( 2, 3);
+        graph.addEdge( 2, 0);
+        graph.addEdge( 3, 2);
 
-        addEdge(am, 4, 6);
-        addEdge(am, 6, 5);
+        graph.addEdge( 4, 6);
+        graph.addEdge( 6, 5);
 
-        delete(am, 0, 1);
-        printGraph(am);
+//        graph.delete( 0, 1);
+        graph.printGraph();
     }
 
     // Print the graph
-    static void printGraph(ArrayList<ArrayList<Integer>> am) {
-        for (int i = 0; i < am.size(); i++) {
+    public void printGraph() {
+        for (int i = 0; i < vertices.size(); i++) {
             System.out.println("\nVertex " + i + ":");
-            for (int j = 0; j < am.get(i).size(); j++) {
-                System.out.print(" -> " + am.get(i).get(j));
+            for (int j = 0; j < vertices.get(i).size(); j++) {
+                System.out.print(" -> " + vertices.get(i).get(j));
+            }
+            System.out.println();
+        }
+    }
+}
+// directed
+class Graph4 {
+
+    private int size;
+    private ArrayList<ArrayList<Integer>> vertices;
+
+    public Graph4(int size) {
+        this.size = size;
+        vertices = new ArrayList<>(size);
+        for (int i = 0; i < size; i++)
+            vertices.add(new ArrayList<>());
+    }
+
+    // Add edge
+    public void addEdge(int s, int d) {
+        vertices.get(s).add(d);
+    }
+
+    public void delete(int s, int d) {
+        for (int i = 0; i < vertices.get(s).size(); i++) {
+            if (vertices.get(s).get(i).equals(d)) {
+                vertices.get(s).remove(i);
+                break;
+            }
+        }
+    }
+
+    public void dfs(int start) {
+        boolean[] isVisited = new boolean[vertices.size()];
+        dfsRecursive(start, isVisited);
+    }
+
+    private void dfsRecursive(int current, boolean[] isVisited) {
+        isVisited[current] = true;
+        System.out.print(current + " -> ");
+        for (int dest : vertices.get(current)) {
+            if (!isVisited[dest])
+                dfsRecursive(dest, isVisited);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        var graph = new Graph4(10);
+
+        // Add edges
+        graph.addEdge( 0, 1);
+        graph.addEdge( 1, 2);
+        graph.addEdge( 2, 3);
+        graph.addEdge( 2, 0);
+        graph.addEdge( 3, 2);
+
+        graph.addEdge( 4, 6);
+        graph.addEdge( 5, 4);
+
+        graph.addEdge( 6, 5);
+
+        graph.addEdge(0, 7);
+        graph.addEdge(0, 8);
+        graph.addEdge(8, 9);
+
+//        graph.delete(0, 1);
+        graph.dfs(0);
+//        graph.printGraph();
+    }
+
+    // Print the graph
+    public void printGraph() {
+        for (int i = 0; i < vertices.size(); i++) {
+            System.out.println("\nVertex " + i + ":");
+            for (int j = 0; j < vertices.get(i).size(); j++) {
+                System.out.print(" -> " + vertices.get(i).get(j));
             }
             System.out.println();
         }
