@@ -106,6 +106,23 @@ class Graph4 {
         }
     }
 
+    public void bfs(int current) {
+        var q = new LinkedList<Integer>();
+        var isVisited =  new boolean[vertices.size()];
+        isVisited[current] = true;
+        q.addLast(current);
+        while (!q.isEmpty()) {
+            var r = q.removeFirst();
+            System.out.print(r + " -> ");
+            for (var vertex : vertices.get(r)) {    // iterate visit all kids at the same layer
+                if (!isVisited[vertex]) {
+                    isVisited[vertex] = true;
+                    q.addLast(vertex);  // add to Q
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         var graph = new Graph4(10);
@@ -128,6 +145,8 @@ class Graph4 {
 
 //        graph.delete(0, 1);
         graph.dfs(0);
+        System.out.println("\n--- bfs ---");
+        graph.bfs(0);
 //        graph.printGraph();
     }
 
