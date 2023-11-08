@@ -1,4 +1,4 @@
-package contains_duplicate;
+package leetcodes.contains_duplicate;
 
 import java.util.HashMap;
 

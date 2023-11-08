@@ -1,4 +1,4 @@
-package two_sum;
+package leetcodes.two_sum;
 
 /*
 * Given an array of integers nums and an integer target,

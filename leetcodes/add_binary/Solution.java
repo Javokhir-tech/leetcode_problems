@@ -1,4 +1,4 @@
-package add_binary;
+package leetcodes.add_binary;
 
 class Solution {
     public static String addBinary(String a, String b) {
