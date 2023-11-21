@@ -1,6 +1,6 @@
-### Chapter 2. Creating and destroying objects
+## Chapter 2. Creating and destroying objects
 
-## Item 1. Consider static factory methods over constructors:
+### Item 1. Consider static factory methods over constructors:
 
 The static factory method is not the same as the Factory Design Pattern
 
@@ -25,7 +25,7 @@ Case: class has a lot of props some of them are optional, like for ex. Nutrition
 
 Covariant return typing - subclass returns type of subclass
 
-## Item 3. Enforce the singleton prop with a private constructor or an enum type
+### Item 3. Enforce the singleton prop with a private constructor or an enum type
 
 The class which is instantiated only once called singleton
 Represents a stateless object such as a function, or system component that is unique
@@ -41,7 +41,7 @@ Otherwise, when serialized every time, a new instance will be created
 Ways how it can be broken can be found [here.](https://www.geeksforgeeks.org/prevent-singleton-pattern-reflection-serialization-cloning/)
 **`Breaking the singleton pattern in the app can cause Dos of System, UnAuth access, inconsistent logging, etc.**
 `
-## Item 4 Enforce noninstantiability with a private constructor
+### Item 4 Enforce noninstantiability with a private constructor
 
 By making a class abstract, we cannot guarantee that a constructor will be created, so a class can be made noninstantiable by including a private constructor:
 
@@ -55,7 +55,7 @@ utility classes were not designed to be instantiates, as they have static fields
 like Arrays, Collections classes which have private constructors
 As a side effect, this idiom also prevents the class from being subclassed
 
-## Item 5. Prefer dependency injection to hardwiring resources
+### Item 5. Prefer dependency injection to hardwiring resources
 
 **Static utility classes and singletons are inappropriate for
 classes whose behavior is parameterized by an underlying resource**
@@ -75,7 +75,7 @@ public class SpellChecker {
 }
 ```
 In summary, do not use a singleton or static utility class to implement a class that depends on one or more underlying resources whose behavior affects that of the class, and do not have the class create these resources directly. Instead, pass the resources, or factories to create them, into the constructor (or static factory or builder).
-## Item 6.  Avoid creating unnecessary objects
+### Item 6.  Avoid creating unnecessary objects
 It is often appropriate to reuse a single object instead of creating a new function- ally equivalent object each time it is needed. Reuse can be both faster and more stylish. An object can always be reused if it is immutable (Section 17).
 
 Some object creations are much more expensive than others. If you’re going to need such an “expensive object” repeatedly, it may be advisable to cache it for reuse.
@@ -85,10 +85,10 @@ Another way to create unnecessary objects is autoboxing, which allows the progra
 — Prefer primitives to boxed primitives, and watch out for unintentional autoboxing.
 
 
-## Item 7. Eliminate obsolete obj references
+### Item 7. Eliminate obsolete obj references
 Generally speaking, whenever a class manages its own memory, the programmer should be alert for memory leaks. Whenever an element is freed, any object references contained in the element should be nulled out. Another common source of memory leaks is caches. A third common source of memory leaks is listeners and other callbacks.
 
-## Item 8. Avoid finalizers and cleaners
+### Item 8. Avoid finalizers and cleaners
 
 — Finalizers are unpredictable, often dangerous, and generally unnecessary.
 — The Java 9 replacement for finalizers is cleaners. Cleaners are less dangerous than finalizers, but still unpredictable, slow, and generally unnecessary.
@@ -96,7 +96,54 @@ One shortcoming of finalizers and cleaners is that there is no guarantee they’
 
 So what should you do instead of writing a finalizer or cleaner for a class whose objects encapsulate resources that require termination, such as files or threads? Just have your class implement AutoCloseable, and require its clients to invoke the close method on each instance when it is no longer needed.
 
-## Section 9: Prefer try-with-resources to try — finally
+### Section 9: Prefer try-with-resources to try — finally
 Always use try -with-resources in preference to try-finally when working with resources that must be closed. The resulting code is shorter and clearer, and the exceptions that it generates are more useful.
 
+
+### Section 10: Obey the general contract when overriding equals
+The easiest way to avoid problems is not to override the equals method, in which case each instance of the class is equal only to itself. This is the right thing to do if any of the following conditions apply:
+
+Each instance of the class is inherently unique.
+There is no need for the class to provide a “logical equality” test.
+A superclass has already overridden equals , and the superclass behavior is appropriate for this class.
+The class is private or package-private, and you are certain that its equals method will never be invoked.
+So when is it appropriate to override equals? It is when a class has a notion of logical equality that differs from mere object identity and a superclass has not already overridden equals. This is generally the case for value classes. A value class is simply a class that represents a value, such as Integer or String.
+
+When you are finished writing your equals method, ask yourself three questions: Is it symmetric? Is it transitive? Is it consistent?
+
+Here are a few final caveats:
+* Always override hashCode when you override equals
+* Don’t try to be too clever. If you simply test fields for equality, it’s not hard to adhere to the equals contract
+IDEs generate equals (and hashCode) methods is generally preferable to implementing them manually because IDEs do not make careless mistakes, and humans do.
+
+### Section 11. Always override hashCode when you override equals
+Don’t try to be too clever. If you simply test fields for equality, it’s not hard to adhere to the equals contract
+IDEs generate equals (and hashCode) methods is generally preferable to implementing them manually because IDEs do not make careless mistakes, and humans do.
+
+Section 11: Always override hashCode when you override equals
+You must override hashCode in every class that overrides equals.
+
+— The key provision that is violated when you fail to override hashCode is the second one: equal objects must have equal hash codes.
+This one, for example, is always legal but should never be used:
+
+// The worst possible legal hashCode implementation - never use!
+```@Override public int hashCode() { return 42; }```
+It’s legal because it ensures that equal objects have the same hash code. It’s atrocious because it ensures that every object has the same hash code. Therefore, every object hashes to the same bucket, and hash tables degenerate to linked lists.
+
+The Objects class has a static method that takes an arbitrary number of objects and returns a hash code for them. This method, named hash , lets you write one-line hashCode methods whose quality is comparable to those written according to the recipe in this item.
+
+// One-line hashCode method - mediocre performance
+```
+@Override public int hashCode() {
+return Objects.hash(lineNum, prefix, areaCode);
+}
+```
+
+### Section 12: Always override toString
+— Providing a good toString implementation makes your class much more pleasant to use and makes systems using the class easier to debug.
+The toString method is automatically invoked when an object is passed to println, printf, the string concatenation operator, or assert, or is printed by a debugger.
+
+Nor should you write a toString method in most enum types because Java provides a perfectly good one for you. You should, however, write a toString method in any abstract class whose subclasses share a common string representation. For example, the toString methods on most collection implementations are inherited from the abstract collection classes.
+
+To recap, override Object’s toString implementation in every instantiable class you write, unless a superclass has already done so. It makes classes much more pleasant to use and aids in debugging.
 
