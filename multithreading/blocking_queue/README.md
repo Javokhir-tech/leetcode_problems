@@ -1,6 +1,6 @@
 ## Blocking Queue | Bounded Buffer | Consumer Producer
 
-![img_1.png](img_1.png)
+![img_1.png](blockingQ.png)
 
 <p>
 A blocking queue is defined as a queue which blocks the caller of the enqueue method 
