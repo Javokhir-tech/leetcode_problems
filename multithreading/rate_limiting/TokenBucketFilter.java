@@ -8,16 +8,12 @@ public class TokenBucketFilter {
     private final int MAX_TOKENS;
     // variable to note down the latest token request.
     private long lastRequestTime = System.currentTimeMillis();
-    long possibleTokens = 0;
-    int rate;
+    private long possibleTokens = 0;
+    private final int rate;
 
     public TokenBucketFilter(int rate, int maxTokens) {
         MAX_TOKENS = maxTokens;
         this.rate = rate;
-    }
-
-    synchronized void refill() {
-        possibleTokens = Math.min(MAX_TOKENS, possibleTokens + ((System.currentTimeMillis() - lastRequestTime) / 1000) * rate);
     }
 
     synchronized void getToken() throws InterruptedException {
