@@ -1,4 +1,4 @@
-package multithreading.blocking_queue;
+package multithreading.blocking_queue.monitor;
 
 public class Main {
 
@@ -43,7 +43,7 @@ public class Main {
     Thread.sleep(3000);
     thread2.start();
     thread2.join();
-
+    Thread.sleep(1000);
     thread3.start();
     thread1.join();
     thread3.join();
