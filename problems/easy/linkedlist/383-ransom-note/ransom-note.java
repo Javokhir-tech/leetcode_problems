@@ -4,7 +4,6 @@ class Solution {
         for (char c : magazine.toCharArray()) {
             map.put(c, map.getOrDefault(c, 0) + 1);
         }
-
         for (char c : ransomNote.toCharArray()) {
             int currentCount = map.getOrDefault(c, 0);
 
