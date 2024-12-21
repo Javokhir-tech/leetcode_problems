@@ -8,12 +8,10 @@ class Solution {
             arr[letter - 'a']++;
         }
         for (char letter : t.toCharArray()) {
-            int occurence = arr[letter - 'a'];
-            occurence--;
+            int occurence = --arr[letter - 'a'];
             if (occurence < 0) {
                 return false;
             }
-            arr[letter - 'a'] = occurence;
         }
         return true;
     }
