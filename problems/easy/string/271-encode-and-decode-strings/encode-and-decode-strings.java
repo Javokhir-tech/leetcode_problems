@@ -12,9 +12,7 @@ public class Codec {
 
     // Decodes a single string to a list of strings.
     public List<String> decode(String s) {
-        System.out.println(s);
         String[] strs = s.split("π", -1);
-
         return Arrays.asList(strs).subList(0, strs.length - 1);
     }
 }
