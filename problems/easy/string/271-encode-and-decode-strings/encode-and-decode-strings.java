@@ -4,16 +4,23 @@ public class Codec {
     public String encode(List<String> strs) {
         StringBuilder sb = new StringBuilder();
         for (String str : strs) {
-            sb.append(str);
-            sb.append("π");
+            sb.append(str.length()).append("#").append(str);
         }
         return sb.toString();
     }
 
     // Decodes a single string to a list of strings.
     public List<String> decode(String s) {
-        String[] strs = s.split("π", -1);
-        return Arrays.asList(strs).subList(0, strs.length - 1);
+        List<String> res = new ArrayList<>();
+        int curr = 0;
+        while (curr < s.length()) {
+            int delimeterIdx = s.indexOf("#", curr);
+            int strLength = Integer.parseInt(s.substring(curr, delimeterIdx));
+            curr = delimeterIdx + 1; // step over delimeter
+            res.add(s.substring(curr, curr + strLength));
+            curr += strLength;
+        }
+        return res;
     }
 }
 
