@@ -2,11 +2,7 @@ class Solution {
     public int[] productExceptSelf(int[] nums) {
         // calculate prefix and suffix arrays then multiply both
         int[] answer = new int[nums.length];
-        //    1,  2,  3,  4
         
-        //pre 1,  1,  2,  6
-        
-        //ans 24, 12, 8,  6
         answer[0] = 1;
         for (int i = 1; i < nums.length; i++) {
             answer[i] = nums[i - 1] * answer[i - 1];
@@ -16,7 +12,6 @@ class Solution {
             answer[i] = answer[i] * right;
             right *= nums[i];
         }
-        
         return answer;
         // time: o(n)
         // space: o(1);
