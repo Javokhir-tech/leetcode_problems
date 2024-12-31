@@ -12,7 +12,6 @@ class Solution {
         answer[0] = 1;
         for (int i = 1; i < nums.length; i++) {
             answer[i] = nums[i - 1] * answer[i - 1];
-            System.out.println("a " + answer[i]);
         }
         int right = 1;
         for (int i = nums.length - 1; i >= 0; i--) {
