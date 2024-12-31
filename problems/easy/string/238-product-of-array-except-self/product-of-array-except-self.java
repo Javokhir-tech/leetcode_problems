@@ -7,6 +7,32 @@ class Solution {
         //    1,  2,  3,  4
         
         //pre 1,  1,  2,  6
+        
+        //ans 24, 12, 8,  6
+        answer[0] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            answer[i] = nums[i - 1] * answer[i - 1];
+            System.out.println("a " + answer[i]);
+        }
+        int right = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            answer[i] = answer[i] * right;
+            right *= nums[i];
+        }
+        
+        return answer;
+        // time: o(n)
+        // space: o(1);
+    }
+/** 
+    public int[] productExceptSelf(int[] nums) {
+        // calculate prefix and suffix arrays then multiply both
+        int[] answer = new int[nums.length];
+        int[] prefix = new int[nums.length];
+        int[] suffix = new int[nums.length];
+        //    1,  2,  3,  4
+        
+        //pre 1,  1,  2,  6
         //suf 24, 12, 4,  1
         //ans 24, 12, 8,  6
         prefix[0] = 1;
@@ -21,5 +47,8 @@ class Solution {
             answer[i] = prefix[i] * suffix[i];
         }
         return answer;
+        // time: o(n)
+        // space: o(n);
     }
+*/
 }
