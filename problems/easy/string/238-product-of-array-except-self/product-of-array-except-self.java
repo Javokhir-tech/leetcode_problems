@@ -2,8 +2,6 @@ class Solution {
     public int[] productExceptSelf(int[] nums) {
         // calculate prefix and suffix arrays then multiply both
         int[] answer = new int[nums.length];
-        int[] prefix = new int[nums.length];
-        int[] suffix = new int[nums.length];
         //    1,  2,  3,  4
         
         //pre 1,  1,  2,  6
