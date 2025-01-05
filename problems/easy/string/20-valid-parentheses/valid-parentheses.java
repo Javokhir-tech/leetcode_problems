@@ -1,17 +1,15 @@
 class Solution {
 
-    private final Map<Character, Character> maps = 
-    Map.of('{', '}', '[', ']', '(', ')');    
+    private static final Map<Character, Character> maps = Map.of('{', '}', '[', ']', '(', ')');    
 
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
 
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
+        for (char ch : s.toCharArray()) {
             if (maps.containsKey(ch)) {
                 stack.push(maps.get(ch));
             }
-            if (maps.containsValue(ch)) {
+            else {
                 if (stack.isEmpty() || stack.pop() != ch) {
                     return false;
                 }
