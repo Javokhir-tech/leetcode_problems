@@ -2,16 +2,20 @@ package leetcodes.recursion;
 
 public class Recursion {
 
-    static int sum(int[] arr) {
-        if (arr.length == 1) return arr[0];
+    static int sum(int[] arr, int len) {
+        if (len <= 0) return 0;
+        return arr[len - 1] + sum(arr, len - 1);
+    }
 
-        int[] new_arr = new int[arr.length - 1];
-        System.arraycopy(arr, 1, new_arr, 0, arr.length - 1);
-        return arr[0] + sum(new_arr);
+    static int max(int[] arr, int len) {
+        if (len == 1) return arr[0];
+        return Math.max(arr[len - 1], max(arr, len - 1));
     }
 
     public static void main(String[] args) {
-        int sum = sum(new int[] {2, 3, 4, 5, 10, 5});
-        System.out.println("sum: " + sum);
+        int [] arr = {7, 2, 3, 8, 6, 4, 5};
+        int sum = sum(arr, arr.length);
+        int max = max(arr, arr.length);
+        System.out.println("sum: " + sum + ", max: " + max);
     }
 }
