@@ -3,25 +3,23 @@ class Solution {
         if (s.length() % 2 != 0) {
             return false;
         }
-        String[] chars = s.split("");
-        ArrayList<String> stack = new ArrayList<>();
-        List<String> opening = List.of("(", "[", "{");
-        List<String> closing = List.of(")", "]", "}");
-        
-        for (String ch : chars) {
-            if (opening.contains(ch)) {
-                stack.add(ch);
+        Stack<Character> stack = new Stack<>();
+        Map<Character, Character> parentheses = new HashMap<>();
+        parentheses.put('{', '}');
+        parentheses.put('[', ']');
+        parentheses.put('(', ')');
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (parentheses.containsKey(ch)) {
+                stack.push(parentheses.get(ch));
             }
-            else if (closing.contains(ch)) {
-                String o = (stack.size() == 0) ? "" : stack.get(stack.size() - 1);
-                String parentheses = o + ch;
-                if (parentheses.equals("{}") || parentheses.equals("[]") || parentheses.equals("()")) {
-                    stack.remove(stack.size() - 1);
-                } else {
+            if (parentheses.containsValue(ch)) {
+                if (stack.isEmpty() || stack.pop() != ch) {
                     return false;
                 }
             }
         }
-        return stack.size() == 0;
+        return stack.isEmpty();
     }
 }
