@@ -13,7 +13,7 @@ class Solution {
         ListNode prev = null;
         ListNode cur = head;
         while (cur != null) {
-            var next = cur.next;
+            ListNode next = cur.next;
             cur.next = prev;
             prev = cur;
             cur = next;
