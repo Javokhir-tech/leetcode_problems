@@ -16,17 +16,15 @@ class MyStack {
     }
     
     public int pop() {
-        int top = topQueue.poll();
+        topQueue.poll();
         for (int i = 0; i < queue.size() - 1; i++) {
             int element = queue.poll();
             queue.add(element);
-            if (i == queue.size() - 2) {
+            if (i == queue.size() - 2) { // add new top
                 topQueue.add(element);
             }
         }
-        queue.poll();
-        
-        return top;
+        return queue.poll();
     }
     
     public int top() {
