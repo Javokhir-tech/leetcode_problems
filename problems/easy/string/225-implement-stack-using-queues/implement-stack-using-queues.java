@@ -1,34 +1,23 @@
 class MyStack {
     private Queue<Integer> queue;
-    private Queue<Integer> topQueue;
 
     public MyStack() {
         this.queue = new ArrayDeque<>();
-        this.topQueue = new ArrayDeque<>();
     }
     
     public void push(int x) {
         queue.add(x);
-        if (!topQueue.isEmpty()) {
-            topQueue.poll();
+        for (int i = 0; i < queue.size() - 1; i++) {
+            queue.add(queue.poll());
         }
-        topQueue.add(x); // add top element
     }
     
     public int pop() {
-        topQueue.poll();
-        for (int i = 0; i < queue.size() - 1; i++) {
-            int element = queue.poll();
-            queue.add(element);
-            if (i == queue.size() - 2) { // add new top
-                topQueue.add(element);
-            }
-        }
         return queue.poll();
     }
     
     public int top() {
-        return topQueue.peek();
+        return queue.peek();
     }
     
     public boolean empty() {
