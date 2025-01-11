@@ -5,7 +5,7 @@ class MyStack {
         this.queue = new ArrayDeque<>();
     }
     
-    public void push(int x) {
+    public void push(int x) { // o(n)
         queue.add(x);
         for (int i = 0; i < queue.size() - 1; i++) {
             queue.add(queue.poll());
