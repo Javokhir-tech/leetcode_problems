@@ -12,6 +12,14 @@ public class QuickSort {
     if (l >= r) {     // base case if left is greater or equal to right
       return arr;
     }
+    int left = partition(arr, l, r);
+
+    quickSort(arr, l, left - 1);    // do not include pivot when sorting left/right
+    quickSort(arr, left + 1, r);
+    return arr;
+  }
+
+  private static int partition(int[] arr, int l, int r) {
     int left = l;     // set left var to l
     int pivot = arr[r]; // set pivot as last
     for (int i = l; i < r; i++) {
@@ -20,12 +28,8 @@ public class QuickSort {
         left++;
       }
     }
-    arr[r] = arr[left]; // swap pivot with element at left pointer
-    arr[left] = pivot;
-
-    quickSort(arr, l, left - 1);    // do not include pivot when sorting left/right
-    quickSort(arr, left + 1, r);
-    return arr;
+    swap(arr, left, r);   // swap pivot with value at index left
+    return left;
   }
 
   private static void swap(int[] arr, int l, int r) {
