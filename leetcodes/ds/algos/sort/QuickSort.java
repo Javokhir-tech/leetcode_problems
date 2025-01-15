@@ -11,11 +11,11 @@ public class QuickSort {
   }
 
   private static int[] quickSort(int[] arr, int l, int r) {
-    if (l < r) {     // base case if left is greater or equal to right
-      int left = partition(arr, l, r);
+    if (l < r) {     // base case if l is greater or equal to r pointer
+      int pivotIndex = partition(arr, l, r);
 
-      quickSort(arr, l, left - 1);    // do not include pivot when sorting left/right
-      quickSort(arr, left + 1, r);
+      quickSort(arr, l, pivotIndex - 1);    // do not include pivot when sorting left/right
+      quickSort(arr, pivotIndex + 1, r);
     }
     return arr;
   }

@@ -1,7 +1,5 @@
 package leetcodes.ds.algos.sort;
 
-import java.util.Arrays;
-
 public class MergeSort {
 
   private static int[] mergeSort(int[] arr) {
