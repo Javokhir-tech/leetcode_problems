@@ -17,7 +17,6 @@ public class MergeSort {
       mergeSort(arr, m + 1, r);  // sort right side
       merge(arr, l, m, r);          // merge left right sides
     }
-    System.out.println(Arrays.toString(arr));
     return arr;
   }
 

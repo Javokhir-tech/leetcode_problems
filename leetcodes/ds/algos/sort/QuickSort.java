@@ -5,17 +5,18 @@ import java.util.Arrays;
 public class QuickSort {
 
   private static int[] quickSort(int[] arr) {
+    if (arr == null)
+      return new int[] { };
     return quickSort(arr, 0, arr.length - 1);
   }
 
   private static int[] quickSort(int[] arr, int l, int r) {
-    if (l >= r) {     // base case if left is greater or equal to right
-      return arr;
-    }
-    int left = partition(arr, l, r);
+    if (l < r) {     // base case if left is greater or equal to right
+      int left = partition(arr, l, r);
 
-    quickSort(arr, l, left - 1);    // do not include pivot when sorting left/right
-    quickSort(arr, left + 1, r);
+      quickSort(arr, l, left - 1);    // do not include pivot when sorting left/right
+      quickSort(arr, left + 1, r);
+    }
     return arr;
   }
 
@@ -39,7 +40,7 @@ public class QuickSort {
   }
 
   public static void main(String[] args) {
-    int[] arr = {4, 2, 7, 10, 5, 9, 0, 1, 3};
+    int[] arr = {4, 2, 7, 10, 5, -10, 9, 0, 1, 3};
     System.out.println(Arrays.toString(quickSort(arr)));
   }
 }
