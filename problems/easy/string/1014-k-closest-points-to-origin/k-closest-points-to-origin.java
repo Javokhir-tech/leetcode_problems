@@ -15,10 +15,6 @@ class Solution {
     public int[][] kClosest(int[][] points, int k) {
         PriorityQueue<EuclideanDistance> maxHeap = new PriorityQueue<>(
             (o1, o2) -> Double.compare(o2.distance, o1.distance));
-        // calculate length for each coordinators l
-        // store top k number of l elements | maxHeap ? pop biggest l
-            // sort by distance
-        // return k of l coordinates    4.24 5.09 4.47
         for (int[] pairs : points) {
             double distance = calculateDistance(pairs);
             maxHeap.add(new EuclideanDistance(distance, pairs));
