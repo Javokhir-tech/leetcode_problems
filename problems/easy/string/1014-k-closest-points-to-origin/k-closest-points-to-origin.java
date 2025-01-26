@@ -1,9 +1,5 @@
 class Solution {
 
-    private int calculateDistance(int[] pairs) {
-        return pairs[0] * pairs[0] + pairs[1] * pairs[1];
-    }
-
     public int[][] kClosest(int[][] points, int k) {
         PriorityQueue<int[]> maxHeap = new PriorityQueue<>(
             (a, b) -> Integer.compare(b[0] * b[0] + b[1] * b[1], 
