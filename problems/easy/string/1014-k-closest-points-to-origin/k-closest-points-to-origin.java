@@ -9,7 +9,7 @@ class Solution {
     }
 
     private int calculateDistance(int[] pairs) {
-        return (int)(Math.pow(pairs[0], 2) + Math.pow(pairs[1], 2));
+        return pairs[0] * pairs[0] + pairs[1] * pairs[1];
     }
 
     public int[][] kClosest(int[][] points, int k) {
