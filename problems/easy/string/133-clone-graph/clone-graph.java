@@ -22,10 +22,6 @@ class Solution {
     HashMap<Node, Node> oldToNew = new HashMap<>();
     
     public Node cloneGraph(Node node) {
-        return dfs(node);
-    }
-
-    private Node dfs(Node node) {
         if (node == null) {
             return node;
         }
@@ -35,7 +31,7 @@ class Solution {
         Node copy = new Node(node.val);
         oldToNew.put(node, copy);
         for (Node nei : node.neighbors) {
-            copy.neighbors.add(dfs(nei));
+            copy.neighbors.add(cloneGraph(nei));
         }
         return copy;
     }
