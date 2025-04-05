@@ -5,10 +5,9 @@ class Solution {
         int n = points.length;
         Set<Integer> visited = new HashSet<>();
         minHeap.add(new int[]{0, 0});
-        // visited.add(0);
         int totalCost = 0;
-        int nodesVisited = 0;
-        while (nodesVisited < n) {
+
+        while (visited.size() < n) {
             int[] curr = minHeap.poll();
             int cost = curr[0], idx = curr[1];
             if (visited.contains(idx)) {
@@ -16,7 +15,6 @@ class Solution {
             }
             visited.add(idx);
             totalCost += cost;
-            nodesVisited++;
             for (int i = 0; i < n; i++) {
                 if (!visited.contains(i)) {
                     int dist = calculateDistance(points[idx], points[i]);
