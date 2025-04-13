@@ -1,12 +1,5 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        if (prerequisites.length == 0) {
-            int[] res = new int[numCourses];
-            for (int i = 0; i < numCourses; i++) {
-                res[i] = i;
-            }
-            return res;
-        }
         Map<Integer, List<Integer>> adj = new HashMap<>();
         for (int i = 0; i < numCourses; i++) {
             adj.put(i, new ArrayList<>());
