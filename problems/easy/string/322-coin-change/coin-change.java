@@ -19,7 +19,10 @@ class Solution {
         int res = (int) 1e9;
         for (int coin : coins) {
             if (amount - coin >= 0) {
-                res = Math.min(1 + dfs(coins, amount - coin), res);
+                int result = dfs(coins, amount - coin);
+                if (result != Integer.MAX_VALUE) {
+                    res = Math.min(1 + result, res);
+                }
             }
         }
         cache.put(amount, res);
